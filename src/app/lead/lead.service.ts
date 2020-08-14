@@ -8,8 +8,8 @@ export class LeadService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getStatusSearch(token, nameContains) {
-    return this.httpClient.get<any>('/api/proxy/status/get-by-name/' + nameContains, {
+  getStatusList(token) {
+    return this.httpClient.get<any>('/api/proxy/status/get-all', {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'CustomToken ' + token
@@ -17,8 +17,20 @@ export class LeadService {
     });
   }
 
-  saveStatus(token, body) {
-    return this.httpClient.post<any>('/api/proxy/status/save', body, {
+  saveLead(token, body) {
+    return this.httpClient.post<any>('/api/proxy/lead/save', body, {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'CustomToken ' + token
+      })
+    });
+  }
+
+
+
+
+  getStatusSearch(token, nameContains) {
+    return this.httpClient.get<any>('/api/proxy/status/get-by-name/' + nameContains, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'CustomToken ' + token

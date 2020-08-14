@@ -2,13 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//import { MatNativeDateModule } from '@angular/material';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { MatToolbarModule, MatIconModule, MatSidenavModule } from '@angular/material';
-//import { MaterialModule } from './material.module';
 import { NotifierModule } from 'angular-notifier';
-//import { NgxMaskModule } from 'ngx-mask';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
