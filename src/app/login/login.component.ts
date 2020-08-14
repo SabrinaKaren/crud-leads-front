@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   toLogin() {
+
     if(this.login && (this.login.userName != '' || this.login.password != '')) {
       this.loading = true;
       this.login.userName = this.login.userName.replace('.','').replace('-','');
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
         this.notifier.notify('error', error.message);
       });
     }
+    
   }
 
 }

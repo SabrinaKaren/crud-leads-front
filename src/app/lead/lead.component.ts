@@ -37,16 +37,21 @@ export class LeadComponent implements OnInit {
   }
 
   getLeadSearch() {
+
+    if (this.leadSearch.nameContain == undefined || this.leadSearch.nameContain == ''){
+      this.notifier.notify('error', 'Um nome para a pesquisa deve ser preenchido.');
+      return;
+    }
+
     this.loading = true;
     this.checkService.getLeadSearch(window.localStorage["token"], this.leadSearch.nameContain).subscribe(res => {
       if(res.result == 'SUCCESS') {
-        this.loading = false;
         this.leadSearch.responseList = res.msgSaida;
         this.leadSearch.responseHasItem = true;
       } else {
-        this.loading = false;
         this.notifier.notify('error', res.error[0].message);
       }
+      this.loading = false;
     }, error => {
       if (error.status == 401) {
         this.router.navigate(['/login']);
@@ -55,22 +60,22 @@ export class LeadComponent implements OnInit {
       }
       this.loading = false;
     });
+
   }
 
   getLeadById() {
     this.loading = true;
     this.checkService.getLeadById(window.localStorage["token"], this.leadSave.id).subscribe(res => {
       if(res.result == 'SUCCESS') {
-        this.loading = false;
         this.leadSave.id = res.msgSaida[0].id;
         this.leadSave.name = res.msgSaida[0].name;
         this.leadSave.phone = res.msgSaida[0].phone;
         this.leadSave.email = res.msgSaida[0].email;
         this.leadSave.statusId = res.msgSaida[0].statusId;
       } else {
-        this.loading = false;
         this.notifier.notify('error', res.error[0].message);
       }
+      this.loading = false;
     }, error => {
       if (error.status == 401) {
         this.router.navigate(['/login']);
@@ -91,13 +96,12 @@ export class LeadComponent implements OnInit {
     this.loading = true;
     this.checkService.saveLead(window.localStorage["token"], this.leadSave).subscribe(res => {
       if(res.result == 'SUCCESS') {
-        this.loading = false;
         this.notifier.notify('success', res.msgSaida[0]);
         this.startPage();
       } else {
-        this.loading = false;
         this.notifier.notify('error', res.error[0].message);
       }
+      this.loading = false;
     }, error => {
       if (error.status == 401) {
         this.router.navigate(['/login']);
@@ -110,17 +114,21 @@ export class LeadComponent implements OnInit {
   }
 
   deleteLead(leadIdToDelete) {
+
+    if (!confirm("Realmente deseja excluir o lead de id " + leadIdToDelete + "?")) {
+      return;
+    }
+
     this.loading = true;
     this.checkService.deleteLead(window.localStorage["token"], leadIdToDelete).subscribe(res => {
       if(res.result == 'SUCCESS') {
-        this.loading = false;
         this.leadSave.name = res.msgSaida[0].name;
         this.leadSave.id = res.msgSaida[0].id;
         this.getLeadSearch();
       } else {
-        this.loading = false;
         this.notifier.notify('error', res.error[0].message);
       }
+      this.loading = false;
     }, error => {
       if (error.status == 401) {
         this.router.navigate(['/login']);
@@ -129,18 +137,18 @@ export class LeadComponent implements OnInit {
       }
       this.loading = false;
     });
+
   }
 
   getStatusList() {
     this.loading = true;
     this.checkService.getStatusList(window.localStorage["token"]).subscribe(res => {
       if(res.result == 'SUCCESS') {
-        this.loading = false;
         this.statusList = res.msgSaida;
       } else {
-        this.loading = false;
         this.notifier.notify('error', res.error[0].message);
       }
+      this.loading = false;
     }, error => {
       if (error.status == 401) {
         this.router.navigate(['/login']);

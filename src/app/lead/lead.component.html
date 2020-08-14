@@ -12,7 +12,7 @@
   <div class="row">
     <div class="col-md-12 border" *ngIf="leadSearch.showSearchBox">
       <div class="form-group">
-        <label>Nome contém</label>
+        <label>Nome contém *</label>
         <div class="row">
           <div class="col-md-4">
             <input type="text" class="form-control" [(ngModel)]="leadSearch.nameContain">
@@ -43,7 +43,7 @@
             <td>{{item.phone}}</td>
             <td>{{item.email}}</td>
             <td>{{item.statusName}}</td>
-            <td>{{item.lastUpdateDate}}</td>
+            <td>{{item.lastUpdateDateFormatted}}</td>
             <td><i class="fa fa-trash" style="cursor:pointer" (click)="deleteLead(item.id)"></i></td>
           </tr>
         </tbody>
