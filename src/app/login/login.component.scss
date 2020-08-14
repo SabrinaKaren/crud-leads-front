@@ -1,3 +1,15 @@
+.buttom {
+    background-color: #95CC29;
+    border: 1px solid #f8f8f8;
+    box-shadow: 2px 2px #f8f8f8;
+    color: white;
+    border-radius: 3px;
+}
+
+h6 {
+    margin: 8px 0;
+}
+
 .border {
     border-width: thin;
     border-style: solid;
@@ -5,4 +17,13 @@
     padding-top: 15px;
     padding-left: 5px;
     padding-bottom: 15px;
+}
+
+.buttomRight {
+    background-color: #464340;
+    border: 1px solid #f8f8f8;
+    box-shadow: 2px 2px #f8f8f8;
+    color: white;
+    border-radius: 3px;
+    right: 20px;
 }

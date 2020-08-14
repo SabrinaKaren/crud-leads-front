@@ -16,4 +16,12 @@ export class LoginService {
     });
   }
 
+  register(body) {
+    return this.httpClient.post<any>('/api/proxy/auth/new-user', body, {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    });
+  }
+
 }

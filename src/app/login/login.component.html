@@ -1,6 +1,6 @@
 <app-loading *ngIf="loading"></app-loading>
 <div class="custom-container">
-  <div class="row">
+  <div class="row" *ngIf="showLoginFields">
     <div class="col-md"></div>
     <div class="col-md">
       <div class="login-logo-container">
@@ -14,7 +14,36 @@
         <label>Senha *</label>
         <input type="password" class="form-control" [(ngModel)]="login.password">
       </div>
-      <button class="btn btn-primary login-button buttom" (click)="toLogin()">Login</button>
+      <div class="row">
+        <div class="col-md 6">
+          <button class="btn btn-primary login-button buttom" (click)="toLogin()">Login</button>
+        </div>
+        <div class="col-md 6">
+          <button class="btn btn-primary login-button buttomRight" (click)="goToRegisterFields()">Cadastrar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md"></div>
+  </div>
+  <div class="row" *ngIf="showRegisterFields">
+    <div class="col-md"></div>
+    <div class="col-md">
+      <div class="login-logo-container">
+        <img src="../../assets/dist/img/logo.png" class="login-logo">
+      </div>
+      <div class="form-group">
+        <label>Usuário *</label>
+        <input type="text" class="form-control" [(ngModel)]="newUser.userName">
+      </div>
+      <div class="form-group">
+        <label>Senha *</label>
+        <input type="password" class="form-control" [(ngModel)]="newUser.password">
+      </div>
+      <div class="row">
+        <div class="col-md 6">
+          <button class="btn btn-primary login-button buttom" (click)="register()">Cadastrar</button>
+        </div>
+      </div>
     </div>
     <div class="col-md"></div>
   </div>
