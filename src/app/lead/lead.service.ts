@@ -35,11 +35,8 @@ export class LeadService {
     });
   }
 
-
-  
-
-  getStatusById(token, id) {
-    return this.httpClient.get<any>('/api/proxy/status/get-by-id/' + id, {
+  getLeadById(token, id) {
+    return this.httpClient.get<any>('/api/proxy/lead/get-by-id/' + id, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'CustomToken ' + token
@@ -47,8 +44,8 @@ export class LeadService {
     });
   }
 
-  deleteStatus(token, id) {
-    return this.httpClient.delete<any>('/api/proxy/status/delete/' + id, {
+  deleteLead(token, id) {
+    return this.httpClient.delete<any>('/api/proxy/lead/delete/' + id, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'CustomToken ' + token

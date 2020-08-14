@@ -119,29 +119,16 @@ export class LeadComponent implements OnInit {
     });
   }
 
-
-
-  edit = function (statusId) {
-    this.leadSave.id = statusId;
-    this.leadSave.showFields = true;
-    this.leadSearch.showSearchBox = false;
-    this.action = ' (editando)';
-    this.getStatusById();
-  }
-
-  new = function () {
-    this.leadSave.showFields = true;
-    this.leadSearch.showSearchBox = false;
-    this.action = ' (incluindo)';
-  }
-
-  getStatusById() {
+  getLeadById() {
     this.loading = true;
-    this.checkService.getStatusById(window.localStorage["token"], this.leadSave.id).subscribe(res => {
+    this.checkService.getLeadById(window.localStorage["token"], this.leadSave.id).subscribe(res => {
       if(res.result == 'SUCCESS') {
         this.loading = false;
-        this.leadSave.name = res.msgSaida[0].name;
         this.leadSave.id = res.msgSaida[0].id;
+        this.leadSave.name = res.msgSaida[0].name;
+        this.leadSave.phone = res.msgSaida[0].phone;
+        this.leadSave.email = res.msgSaida[0].email;
+        this.leadSave.statusId = res.msgSaida[0].statusId;
       } else {
         this.loading = false;
         this.notifier.notify('error', res.error[0].message);
@@ -156,9 +143,9 @@ export class LeadComponent implements OnInit {
     });
   }
 
-  deleteStatus(statusIdToDelete) {
+  deleteLead(leadIdToDelete) {
     this.loading = true;
-    this.checkService.deleteStatus(window.localStorage["token"], statusIdToDelete).subscribe(res => {
+    this.checkService.deleteLead(window.localStorage["token"], leadIdToDelete).subscribe(res => {
       if(res.result == 'SUCCESS') {
         this.loading = false;
         this.leadSave.name = res.msgSaida[0].name;
@@ -176,6 +163,20 @@ export class LeadComponent implements OnInit {
       }
       this.loading = false;
     });
+  }
+
+  edit = function (leadId) {
+    this.leadSave.id = leadId;
+    this.leadSave.showFields = true;
+    this.leadSearch.showSearchBox = false;
+    this.action = ' (editando)';
+    this.getLeadById();
+  }
+
+  new = function () {
+    this.leadSave.showFields = true;
+    this.leadSearch.showSearchBox = false;
+    this.action = ' (incluindo)';
   }
 
 }
