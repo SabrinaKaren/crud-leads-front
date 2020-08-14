@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     window.localStorage["token"] = '';
-    window.localStorage["tokenExpirationInMilliseconds"] = '';
+    window.localStorage["tokenExpiration"] = '';
   }
 
   toLogin() {
@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
       this.loginService.toLogin(this.login).subscribe(res => {
         if(res.result == 'SUCCESS'){
           window.localStorage["token"] = res.msgSaida[0].token;
-          window.localStorage["tokenExpirationInMilliseconds"] = res.msgSaida[0].expirationDateInMilliseconds;
+          window.localStorage["tokenExpiration"] = res.msgSaida[0].expirationDate;
           this.router.navigate(['/home']);
         } else {
           window.localStorage["token"] = '';
-          window.localStorage["tokenExpirationInMilliseconds"] = '';
+          window.localStorage["tokenExpiration"] = '';
           this.notifier.notify('error', res.error[0].message);
         }
         this.loading = false;

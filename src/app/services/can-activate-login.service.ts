@@ -15,11 +15,9 @@ export class CanActivateLoginService implements CanActivate {
   checkLogin(){
 
     if (window.localStorage["token"] != undefined && window.localStorage["token"] != '' &&
-        window.localStorage["tokenExpirationInMilliseconds"] != undefined && window.localStorage["tokenExpirationInMilliseconds"] != ''){
+        window.localStorage["tokenExpiration"] != undefined && window.localStorage["tokenExpiration"] != ''){
       
-      var tokenExpirationInMilliseconds = window.localStorage["tokenExpirationInMilliseconds"];
-      var nowInMilliseconds = new Date().getMilliseconds();
-      if (nowInMilliseconds < tokenExpirationInMilliseconds){
+      if (new Date() < new Date(window.localStorage["tokenExpiration"])){
         return true;
       }
           
