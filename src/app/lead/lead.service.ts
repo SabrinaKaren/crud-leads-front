@@ -26,17 +26,17 @@ export class LeadService {
     });
   }
 
-
-
-
-  getStatusSearch(token, nameContains) {
-    return this.httpClient.get<any>('/api/proxy/status/get-by-name/' + nameContains, {
+  getLeadSearch(token, nameContains) {
+    return this.httpClient.get<any>('/api/proxy/lead/get-by-name/' + nameContains, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'CustomToken ' + token
       })
     });
   }
+
+
+  
 
   getStatusById(token, id) {
     return this.httpClient.get<any>('/api/proxy/status/get-by-id/' + id, {

@@ -10,32 +10,40 @@
   </div>   
   <br> 
   <div class="row">
-    <div class="col-md-8 border" *ngIf="statusSearch.showSearchBox">
+    <div class="col-md-12 border" *ngIf="leadSearch.showSearchBox">
       <div class="form-group">
         <label>Nome contém</label>
         <div class="row">
-          <div class="col-md-6">
-            <input type="text" class="form-control" [(ngModel)]="statusSearch.nameContain">
+          <div class="col-md-4">
+            <input type="text" class="form-control" [(ngModel)]="leadSearch.nameContain">
           </div>
           <div class="col-md-2">
-            <button class="btn btn-primary buttom" (click)="getStatusSearch()">Pesquisar</button>
+            <button class="btn btn-primary buttom" (click)="getLeadSearch()">Pesquisar</button>
           </div>
         </div>
       </div>
-      <table class="table table-striped table-bordered" id="myTable" *ngIf="statusSearch.responseHasItem">
+      <table class="table table-striped table-bordered" id="myTable" *ngIf="leadSearch.responseHasItem">
         <thead>
           <tr>
             <th scope="col"></th>
             <th scope="col">Id</th>
             <th scope="col">Nome</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+            <th scope="col">Última atualização</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of statusSearch.responseList">
+          <tr *ngFor="let item of leadSearch.responseList">
             <td><i class="fa fa-edit" style="cursor:pointer" (click)="edit(item.id)"></i></td>
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
+            <td>{{item.phone}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.statusName}}</td>
+            <td>{{item.lastUpdateDate}}</td>
             <td><i class="fa fa-trash" style="cursor:pointer" (click)="deleteStatus(item.id)"></i></td>
           </tr>
         </tbody>

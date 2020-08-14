@@ -12,12 +12,9 @@ export class LeadComponent implements OnInit {
 
   loading = false;
   statusList: [];
-  emptyStatus = {
-    id: undefined,
-    name: ""
-  }
+  action = ' (pesquisando)';
 
-  statusSearch = {
+  leadSearch = {
     showSearchBox: true,
     nameContain: '',
     responseList: [],
@@ -32,8 +29,6 @@ export class LeadComponent implements OnInit {
     email: '',
     statusId: undefined
   }
-
-  action = ' (pesquisando)';
 
   constructor(private router: Router, private checkService: LeadService, private notifier: NotifierService) { }
 
@@ -89,40 +84,27 @@ export class LeadComponent implements OnInit {
     
   }
 
+
+
+
   startPage() {
-    this.statusSearch.nameContain = '';
-    this.statusSearch.responseList = [];
-    this.statusSearch.responseHasItem = false;
-    this.statusSearch.showSearchBox = true;
+    this.leadSearch.nameContain = '';
+    this.leadSearch.responseList = [];
+    this.leadSearch.responseHasItem = false;
+    this.leadSearch.showSearchBox = true;
     this.leadSave.name = '';
     this.leadSave.id = undefined;
     this.leadSave.showFields = false;
     this.action = ' (pesquisando)';
   }
 
-
-
-  edit = function (statusId) {
-    this.leadSave.id = statusId;
-    this.leadSave.showFields = true;
-    this.statusSearch.showSearchBox = false;
-    this.action = ' (editando)';
-    this.getStatusById();
-  }
-
-  new = function () {
-    this.leadSave.showFields = true;
-    this.statusSearch.showSearchBox = false;
-    this.action = ' (incluindo)';
-  }
-
-  getStatusSearch() {
+  getLeadSearch() {
     this.loading = true;
-    this.checkService.getStatusSearch(window.localStorage["token"], this.statusSearch.nameContain).subscribe(res => {
+    this.checkService.getLeadSearch(window.localStorage["token"], this.leadSearch.nameContain).subscribe(res => {
       if(res.result == 'SUCCESS') {
         this.loading = false;
-        this.statusSearch.responseList = res.msgSaida;
-        this.statusSearch.responseHasItem = true;
+        this.leadSearch.responseList = res.msgSaida;
+        this.leadSearch.responseHasItem = true;
       } else {
         this.loading = false;
         this.notifier.notify('error', res.error[0].message);
@@ -135,6 +117,22 @@ export class LeadComponent implements OnInit {
       }
       this.loading = false;
     });
+  }
+
+
+
+  edit = function (statusId) {
+    this.leadSave.id = statusId;
+    this.leadSave.showFields = true;
+    this.leadSearch.showSearchBox = false;
+    this.action = ' (editando)';
+    this.getStatusById();
+  }
+
+  new = function () {
+    this.leadSave.showFields = true;
+    this.leadSearch.showSearchBox = false;
+    this.action = ' (incluindo)';
   }
 
   getStatusById() {
@@ -165,7 +163,7 @@ export class LeadComponent implements OnInit {
         this.loading = false;
         this.leadSave.name = res.msgSaida[0].name;
         this.leadSave.id = res.msgSaida[0].id;
-        this.getStatusSearch();
+        this.getLeadSearch();
       } else {
         this.loading = false;
         this.notifier.notify('error', res.error[0].message);
