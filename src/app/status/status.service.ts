@@ -17,8 +17,8 @@ export class StatusService {
     });
   }
 
-  saveStatus(token, body) {
-    return this.httpClient.post<any>('/api/proxy/status/save', body, {
+  getStatusById(token, id) {
+    return this.httpClient.get<any>('/api/proxy/status/get-by-id/' + id, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'CustomToken ' + token
@@ -26,8 +26,8 @@ export class StatusService {
     });
   }
 
-  getStatusById(token, id) {
-    return this.httpClient.get<any>('/api/proxy/status/get-by-id/' + id, {
+  saveStatus(token, body) {
+    return this.httpClient.post<any>('/api/proxy/status/save', body, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': 'CustomToken ' + token

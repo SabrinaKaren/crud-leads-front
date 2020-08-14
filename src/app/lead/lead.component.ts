@@ -36,68 +36,6 @@ export class LeadComponent implements OnInit {
     this.getStatusList();
   }
 
-  getStatusList() {
-    this.loading = true;
-    this.checkService.getStatusList(window.localStorage["token"]).subscribe(res => {
-      if(res.result == 'SUCCESS') {
-        this.loading = false;
-        this.statusList = res.msgSaida;
-      } else {
-        this.loading = false;
-        this.notifier.notify('error', res.error[0].message);
-      }
-    }, error => {
-      if (error.status == 401) {
-        this.router.navigate(['/login']);
-      } else {
-        this.notifier.notify('error', error.message);
-      }
-      this.loading = false;
-    });
-  }
-
-  saveLead() {
-
-    if (this.leadSave.name == undefined || this.leadSave.name == ''){
-      this.notifier.notify('error', 'O nome deve ser informado.');
-      return;
-    }
-
-    this.loading = true;
-    this.checkService.saveLead(window.localStorage["token"], this.leadSave).subscribe(res => {
-      if(res.result == 'SUCCESS') {
-        this.loading = false;
-        this.notifier.notify('success', res.msgSaida[0]);
-        this.startPage();
-      } else {
-        this.loading = false;
-        this.notifier.notify('error', res.error[0].message);
-      }
-    }, error => {
-      if (error.status == 401) {
-        this.router.navigate(['/login']);
-      } else {
-        this.notifier.notify('error', error.message);
-      }
-      this.loading = false;
-    });
-    
-  }
-
-
-
-
-  startPage() {
-    this.leadSearch.nameContain = '';
-    this.leadSearch.responseList = [];
-    this.leadSearch.responseHasItem = false;
-    this.leadSearch.showSearchBox = true;
-    this.leadSave.name = '';
-    this.leadSave.id = undefined;
-    this.leadSave.showFields = false;
-    this.action = ' (pesquisando)';
-  }
-
   getLeadSearch() {
     this.loading = true;
     this.checkService.getLeadSearch(window.localStorage["token"], this.leadSearch.nameContain).subscribe(res => {
@@ -143,6 +81,34 @@ export class LeadComponent implements OnInit {
     });
   }
 
+  saveLead() {
+
+    if (this.leadSave.name == undefined || this.leadSave.name == ''){
+      this.notifier.notify('error', 'O nome deve ser informado.');
+      return;
+    }
+
+    this.loading = true;
+    this.checkService.saveLead(window.localStorage["token"], this.leadSave).subscribe(res => {
+      if(res.result == 'SUCCESS') {
+        this.loading = false;
+        this.notifier.notify('success', res.msgSaida[0]);
+        this.startPage();
+      } else {
+        this.loading = false;
+        this.notifier.notify('error', res.error[0].message);
+      }
+    }, error => {
+      if (error.status == 401) {
+        this.router.navigate(['/login']);
+      } else {
+        this.notifier.notify('error', error.message);
+      }
+      this.loading = false;
+    });
+    
+  }
+
   deleteLead(leadIdToDelete) {
     this.loading = true;
     this.checkService.deleteLead(window.localStorage["token"], leadIdToDelete).subscribe(res => {
@@ -163,6 +129,37 @@ export class LeadComponent implements OnInit {
       }
       this.loading = false;
     });
+  }
+
+  getStatusList() {
+    this.loading = true;
+    this.checkService.getStatusList(window.localStorage["token"]).subscribe(res => {
+      if(res.result == 'SUCCESS') {
+        this.loading = false;
+        this.statusList = res.msgSaida;
+      } else {
+        this.loading = false;
+        this.notifier.notify('error', res.error[0].message);
+      }
+    }, error => {
+      if (error.status == 401) {
+        this.router.navigate(['/login']);
+      } else {
+        this.notifier.notify('error', error.message);
+      }
+      this.loading = false;
+    });
+  }
+
+  startPage() {
+    this.leadSearch.nameContain = '';
+    this.leadSearch.responseList = [];
+    this.leadSearch.responseHasItem = false;
+    this.leadSearch.showSearchBox = true;
+    this.leadSave.name = '';
+    this.leadSave.id = undefined;
+    this.leadSave.showFields = false;
+    this.action = ' (pesquisando)';
   }
 
   edit = function (leadId) {
